@@ -22,6 +22,8 @@ if sumX ~= 0
     x = x / sumX;
 end
 
+end
+
 % =========================
 %   Private Function(s)
 % =========================
@@ -55,4 +57,6 @@ else
     for k = 1:K
         x = [x; sum(G(B == k))];
     end
+end
+
 end

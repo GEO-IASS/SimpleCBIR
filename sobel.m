@@ -11,3 +11,5 @@ Gy = imfilter(I, h', 'replicate');
 
 G = hypot(Gx, Gy);
 D = (atan2(Gy, Gx) + pi) * 180 / pi;
+
+end
