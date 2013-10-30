@@ -2,6 +2,10 @@ function [P, R] = loo(images, classname, N)
 
 X = {images(strcmp({images.class}, classname)).hist};
 sizeX = size(X, 2);
+if sizeX == 0
+    P = R = [];
+    return
+end
 
 P = zeros(1, N);
 R = zeros(1, N);
