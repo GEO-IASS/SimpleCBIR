@@ -9,11 +9,8 @@ E = edge(I, 'canny');
 [G, D] = sobel(I);
 G(~E) = 0;
 
-% quantize edge orientations into K bins
-w = 360 / K;
-B = ceil(D / w);
-
 % compute orientation histogram
+B = ceil(D * K / 360);
 x = pyramid(G, B, K, L);
 
 % normalization
@@ -30,33 +27,20 @@ end
 
 function [x] = pyramid(G, B, K, L)
 
-m = size(G, 1);
-n = size(G, 2);
-
-x = [];
 if L > 0
     % divide image into 4 blocks
-    bm = ceil(m / 2);
-    bn = ceil(n / 2);
+    m = size(G, 1); bm = ceil(m / 2);
+    n = size(G, 2); bn = ceil(n / 2);
     colG = mat2cell(G, [bm, m - bm], [bn, n - bn]);
     colB = mat2cell(B, [bm, m - bm], [bn, n - bn]);
 
     % compute orientation histograms for each block
-    totalX = zeros(K, 1);
-    for idx = 1:4
-        blockG = colG{idx};
-        blockB = colB{idx};
-
-        blockX = pyramid(blockG, blockB, K, L - 1);
-        totalX = totalX + blockX(1:K);
-        x = [x; blockX];
-    end
-
-    x = [totalX; x];
+    X = cellfun(@(blockG, blockB) pyramid(blockG, blockB, K, L - 1), ...
+                colG, colB, 'UniformOutput', false);
+    X = cell2mat(X);
+    x = [sum(X(1:K, :), 2); X(:)];
 else
-    for k = 1:K
-        x = [x; sum(G(B == k))];
-    end
+    x = arrayfun(@(k) sum(G(B == k)), 1:K).';
 end
 
 end
