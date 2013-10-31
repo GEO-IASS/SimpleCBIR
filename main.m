@@ -23,23 +23,23 @@ for idx = 1:nrows
 
     images(idx).path = filepath;
     images(idx).name = tokens{4};
-    images(idx).class = tokens{3};
+    images(idx).category = tokens{3};
     images(idx).hist = x;
 end
 
 while true
-    name = deblank(input('> ', 's'));
-    if strcmp(name, '')
+    category = deblank(input('> ', 's'));
+    if strcmp(category, '')
         continue
     end
 
     % perform leave-one-out and plot the PR curve
-    [P, R] = loo(images, name, N);
+    [P, R] = loo(images, category, N);
     if size(P) == 0
-        printf('Image class ''%s'' not exists.\n', name);
+        printf('Category ''%s'' not exists.\n', category);
         continue
     end
-    prcurve(P, R, name);
+    prcurve(P, R, category);
 
     fprintf('Press any key to continue...');
     pause;
