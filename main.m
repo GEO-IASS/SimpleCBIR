@@ -4,11 +4,13 @@ pkg('load', 'image');
 
 K = 40; L = 3; N = 50;
 
+% list all image files in the root
 root = './dataset';
 files = [ls([root, '/*/*.jpg']);
          ls([root, '/*/*.JPG']);
          ls([root, '/*/*.jpeg'])];
 
+% load images and extract features
 images = [];
 nrows = size(files, 1);
 for idx = 1:nrows
@@ -31,6 +33,7 @@ while true
         continue
     end
 
+    % perform leave-one-out and plot the PR curve
     [P, R] = loo(images, name, N);
     if size(P) == 0
         printf('Image class ''%s'' not exists.\n', name);

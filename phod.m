@@ -1,4 +1,20 @@
 function [x] = phod(I, K, L)
+% PHOD - Implementation of Pyramid of Histograms of Orientation Gradients algorithm.
+%   x = phod(I, K, L)
+%
+% Arguments:
+%   I - Image to be processed.
+%   K - Number of orientation histogram bins.
+%   L - Number of pyramid levels.
+%
+% Returns:
+%   x - Pyramid histogram of oriented gradients.
+%
+% Reference:
+%   Anna Bosch, Andrew Zisserman, and Xavier Munoz. 2007. Representing shape
+%   with a spatial pyramid kernel. In Proceedings of the 6th ACM international
+%   conference on Image and video retrieval (CIVR '07). ACM, New York, NY,
+%   USA, 401-408.
 
 if size(I, 3) == 3
     I = rgb2gray(I);
