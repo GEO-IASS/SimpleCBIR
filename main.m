@@ -19,7 +19,7 @@ for idx = 1:nrows
     printf('Loading %s/%s ...\n', tokens{3}, tokens{4});
 
     I = imread(filepath);
-    x = phod(I, K, L);
+    x = phog(I, K, L);
 
     images(idx).path = filepath;
     images(idx).name = tokens{4};

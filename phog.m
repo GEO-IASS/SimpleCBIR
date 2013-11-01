@@ -1,5 +1,5 @@
-function [x] = phod(I, K, L)
-% PHOD - Implementation of Pyramid of Histograms of Orientation Gradients algorithm.
+function [x] = phog(I, K, L)
+% PHOG - Implementation of Pyramid of Histograms of Orientation Gradients algorithm.
 %   x = phod(I, K, L)
 %
 % Arguments:
