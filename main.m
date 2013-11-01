@@ -12,7 +12,7 @@ files = [ls([root, '/*/*.jpg']);
 
 % load images and extract features
 C = {};
-X = struct('phog', []);
+X = struct;
 nrows = size(files, 1);
 for idx = 1:nrows
     filepath = deblank(files(idx, :));
@@ -52,7 +52,7 @@ while true
     [P3, R3] = loo(C, X.rp3, category, N);
     prcurve({P1, P2, P3}, {R1, R2, R3}, ...
             [category, ' (Random Projection)'], ...
-            {'K = d)', 'K = d/2', 'K = d/3'});
+            {'K = d', 'K = d/2', 'K = d/3'});
 
     fprintf('Press any key to continue...');
     pause;
