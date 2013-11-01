@@ -22,6 +22,7 @@ for idx = 1:nrows
     I = imread(filepath);
     C{idx} = tokens{3};
     X.phog(idx, :) = phog(I, K, L);
+    X.gcm(idx, :) = gcm(I, 5);
 end
 
 % perform random projection
@@ -41,7 +42,10 @@ while true
 
     % perform leave-one-out and plot the PR curve
     [P, R] = loo(C, X.phog, category, N);
-    prcurve({P}, {R}, [category, ' (PHOG)', ]);
+    prcurve({P}, {R}, [category, ' (PHOG)']);
+
+    [P, R] = loo(C, X.gcm, category, N);
+    prcurve({P}, {R}, [category, ' (Grid Color Moments)']);
 
     [P1, R1] = loo(C, X.rp1, category, N);
     [P2, R2] = loo(C, X.rp2, category, N);
