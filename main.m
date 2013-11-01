@@ -11,7 +11,8 @@ files = [ls([root, '/*/*.jpg']);
          ls([root, '/*/*.jpeg'])];
 
 % load images and extract features
-images = [];
+C = {};
+X = struct('phog', []);
 nrows = size(files, 1);
 for idx = 1:nrows
     filepath = deblank(files(idx, :));
@@ -19,26 +20,21 @@ for idx = 1:nrows
     printf('Loading %s/%s ...\n', tokens{3}, tokens{4});
 
     I = imread(filepath);
-    x = phog(I, K, L);
-
-    images(idx).path = filepath;
-    images(idx).name = tokens{4};
-    images(idx).category = tokens{3};
-    images(idx).hist = x;
+    C{idx} = tokens{3};
+    X.phog(idx, :) = phog(I, K, L);
 end
 
 while true
     category = deblank(input('> ', 's'));
     if strcmp(category, '')
         continue
-    end
-
-    % perform leave-one-out and plot the PR curve
-    [P, R] = loo(images, category, N);
-    if size(P) == 0
+    elseif ~any(strcmp(C, category))
         printf('Category ''%s'' not exists.\n', category);
         continue
     end
+
+    % perform leave-one-out and plot the PR curve
+    [P, R] = loo(C, X.phog, category, N);
     prcurve(P, R, category);
 
     fprintf('Press any key to continue...');
