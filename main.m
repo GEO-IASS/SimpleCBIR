@@ -35,7 +35,7 @@ while true
 
     % perform leave-one-out and plot the PR curve
     [P, R] = loo(C, X.phog, category, N);
-    prcurve(P, R, category);
+    prcurve({P}, {R}, category);
 
     fprintf('Press any key to continue...');
     pause;
