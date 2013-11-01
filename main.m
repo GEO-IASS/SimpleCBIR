@@ -24,6 +24,12 @@ for idx = 1:nrows
     X.phog(idx, :) = phog(I, K, L);
 end
 
+% perform random projection
+d = size(X.phog, 1);
+X.rp1 = randproj(X.phog, d);
+X.rp2 = randproj(X.phog, d / 2);
+X.rp3 = randproj(X.phog, d / 3);
+
 while true
     category = deblank(input('> ', 's'));
     if strcmp(category, '')
@@ -35,7 +41,14 @@ while true
 
     % perform leave-one-out and plot the PR curve
     [P, R] = loo(C, X.phog, category, N);
-    prcurve({P}, {R}, category);
+    prcurve({P}, {R}, [category, ' (PHOG)', ]);
+
+    [P1, R1] = loo(C, X.rp1, category, N);
+    [P2, R2] = loo(C, X.rp2, category, N);
+    [P3, R3] = loo(C, X.rp3, category, N);
+    prcurve({P1, P2, P3}, {R1, R2, R3}, ...
+            [category, ' (Random Projection)'], ...
+            {'K = d)', 'K = d/2', 'K = d/3'});
 
     fprintf('Press any key to continue...');
     pause;
