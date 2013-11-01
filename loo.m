@@ -6,13 +6,15 @@ function [P, R] = loo(C, X, category, N)
 %   and then calculates average recall and precision at different retrieved
 %   image rank.
 %
-% Arguments:    C           - Array of image categories.
-%               X           - Feature matrix of images.
-%               category    - Name of image category to be retrieved.
-%               N           - Number of retrieved images.
+% Arguments:
+%   C           - Array of image categories.
+%   X           - Feature matrix of images.
+%   category    - Name of image category to be retrieved.
+%   N           - Number of retrieved images.
 %
-% Returns:     P - Vector of precision values.
-%              R - Vector of recall values.
+% Returns:
+%   P - Vector of precision values.
+%   R - Vector of recall values.
 
 sizeX = size(X, 1);
 
