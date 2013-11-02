@@ -40,10 +40,10 @@ for i = 1:sizeZ
     % compute precision and recall at different rank
     acc = cumsum(result(2:N + 1));
     P = P + acc ./ [1:N];
-    R = R + acc / sizeZ;
+    R = R + acc / (sizeZ - 1);
 end
 
-P = P' / N;
-R = R' / N;
+P = P' / sizeZ;
+R = R' / sizeZ;
 
 end
