@@ -33,11 +33,11 @@ X.rp3 = randproj(X.phog, d / 3);
 
 % calculate distance for each pair of images.
 D = struct;
-D.phog = distance(X.phog);
-D.gcm = distance(X.gcm);
-D.rp1 = distance(X.rp1);
-D.rp2 = distance(X.rp2);
-D.rp3 = distance(X.rp3);
+D.phog = pdist(X.phog);
+D.gcm = pdist(X.gcm);
+D.rp1 = pdist(X.rp1);
+D.rp2 = pdist(X.rp2);
+D.rp3 = pdist(X.rp3);
 
 while true
     category = deblank(input('> ', 's'));

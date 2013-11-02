@@ -1,5 +1,5 @@
-function [D] = distance(X)
-% DISTANCE - Computes distance between each pair of vectors.
+function [D] = pdist(X)
+% PDIST - Computes distance between each pair of vectors.
 %   D = distance(X)
 %
 % Arguments:
