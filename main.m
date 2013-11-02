@@ -2,7 +2,7 @@ clear all; close all; clc;
 
 pkg('load', 'image');
 
-K = 40; L = 3; N = 50;
+K = 40; L = 3; G = 5; N = 50;
 
 % list all image files in the root
 dataroot = './dataset/';
@@ -23,7 +23,7 @@ for idx = 1:nrows
     I = imread(filepath);
     C{idx} = tokens{3};
     X.phog(idx, :) = phog(I, K, L);
-    X.gcm(idx, :) = gcm(I, 5);
+    X.gcm(idx, :) = gcm(I, G);
 end
 
 % perform random projection
