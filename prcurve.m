@@ -15,7 +15,7 @@ colors = 'brgkmcyw';
 nColors = length(colors);
 nLines = length(P);
 
-f = figure;
+f = figure('visible', 'off');
 hold on;
 
 arrayfun(@(idx) plot(R{idx}, P{idx}, colors(mod(idx, nColors))), 1:nLines);
