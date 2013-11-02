@@ -40,6 +40,7 @@ D.gcm = pdist(X.gcm);
 D.rp1 = pdist(X.rp1);
 D.rp2 = pdist(X.rp2);
 D.rp3 = pdist(X.rp3);
+D.borda = borda(D.phog, D.gcm);
 
 % create output directory, if needed
 if exist(figroot) ~= 7
@@ -71,4 +72,8 @@ for idx = 1:len
                 [category, ' (Random Projection)'], ...
                 {'K = d', 'K = d/2', 'K = d/3'});
     print(f, [figroot, category, '_rp.png'], '-dpng');
+
+    [P, R] = loo(T, D.borda, N);
+    f = prcurve({P}, {R}, [category, ' (Borda Count)']);
+    print(f, [figroot, category, '_bc.png'], '-dpng');
 end
