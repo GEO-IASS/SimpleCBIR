@@ -31,6 +31,14 @@ X.rp1 = randproj(X.phog, d);
 X.rp2 = randproj(X.phog, d / 2);
 X.rp3 = randproj(X.phog, d / 3);
 
+% calculate distance for each pair of images.
+D = struct;
+D.phog = distance(X.phog);
+D.gcm = distance(X.gcm);
+D.rp1 = distance(X.rp1);
+D.rp2 = distance(X.rp2);
+D.rp3 = distance(X.rp3);
+
 while true
     category = deblank(input('> ', 's'));
     if strcmp(category, '')
@@ -40,16 +48,19 @@ while true
         continue
     end
 
+    % get all images with given image category
+    T = strcmp(C, category);
+
     % perform leave-one-out and plot the PR curve
-    [P, R] = loo(C, X.phog, category, N);
+    [P, R] = loo(T, D.phog, N);
     prcurve({P}, {R}, [category, ' (PHOG)']);
 
-    [P, R] = loo(C, X.gcm, category, N);
+    [P, R] = loo(T, D.gcm, N);
     prcurve({P}, {R}, [category, ' (Grid Color Moments)']);
 
-    [P1, R1] = loo(C, X.rp1, category, N);
-    [P2, R2] = loo(C, X.rp2, category, N);
-    [P3, R3] = loo(C, X.rp3, category, N);
+    [P1, R1] = loo(T, D.rp1, N);
+    [P2, R2] = loo(T, D.rp2, N);
+    [P3, R3] = loo(T, D.rp3, N);
     prcurve({P1, P2, P3}, {R1, R2, R3}, ...
             [category, ' (Random Projection)'], ...
             {'K = d', 'K = d/2', 'K = d/3'});
