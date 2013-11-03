@@ -57,23 +57,23 @@ for idx = 1:len
     T = strcmp(C, category);
 
     % perform leave-one-out and plot the PR curve
-    [P, R] = loo(T, D.phog, N);
+    [P, R] = loocv(T, D.phog, N);
     f = prcurve({P}, {R}, [category, ' (PHOG)']);
     print(f, [figroot, category, '_phod.png'], '-dpng');
 
-    [P, R] = loo(T, D.gcm, N);
+    [P, R] = loocv(T, D.gcm, N);
     f = prcurve({P}, {R}, [category, ' (Grid Color Moments)']);
     print(f, [figroot, category, '_gcm.png'], '-dpng');
 
-    [P1, R1] = loo(T, D.rp1, N);
-    [P2, R2] = loo(T, D.rp2, N);
-    [P3, R3] = loo(T, D.rp3, N);
+    [P1, R1] = loocv(T, D.rp1, N);
+    [P2, R2] = loocv(T, D.rp2, N);
+    [P3, R3] = loocv(T, D.rp3, N);
     f = prcurve({P1, P2, P3}, {R1, R2, R3}, ...
                 [category, ' (Random Projection)'], ...
                 {'K = d', 'K = d/2', 'K = d/3'});
     print(f, [figroot, category, '_rp.png'], '-dpng');
 
-    [P, R] = loo(T, D.borda, N);
+    [P, R] = loocv(T, D.borda, N);
     f = prcurve({P}, {R}, [category, ' (Borda Count)']);
     print(f, [figroot, category, '_bc.png'], '-dpng');
 end

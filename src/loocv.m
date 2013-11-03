@@ -1,6 +1,6 @@
-function [P, R] = loo(T, D, N)
-% LOO - Performs leave-one-out cross validation.
-%   [P, R] = loo(images, category, N)
+function [P, R] = loocv(T, D, N)
+% LOOCV - Performs leave-one-out cross validation.
+%   [P, R] = loocv(T, D, N)
 %
 %   This function performs leave-one-out cross validation for given category,
 %   and then calculates average recall and precision at different retrieved
