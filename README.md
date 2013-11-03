@@ -21,9 +21,11 @@ There are 4 distance metrics for calculating the (dis)similarity between images.
 
 Each image is divided into 5 × 5 grids. For each grid, I calculate its 1st, 2nd, and 3rd moments (that is, mean, standard deviation, and skewness) of each color channel. Then, the feature extracted from each grid are combined as a long feature to capture the spatial information. In total, there are 25 grids × 3 color channels × 3 moments = 225 dimensions.
 
+I use HSV color space, rather than RGB color space. That is because, RGB color space is NOT perception-uniform: equal distances in different areas and along different dimensions of the RGB space do not correspond to equal perception of color dissimilarity.
+
 After generating feature for each image, I use L2 distance to calculate the dissimilarity for each pair of images.
 
-See [`sobel()`](https://github.com/jason2506/SimpleCBIR/blob/master/src/sobel.m) and [`gcm()`](https://github.com/jason2506/SimpleCBIR/blob/master/src/gcm.m).
+See [`gcm()`](https://github.com/jason2506/SimpleCBIR/blob/master/src/gcm.m).
 
 ### Edge Distance
 
@@ -33,7 +35,7 @@ Each image is divided into a sequence of increasingly finer spatial grids by rep
 
 The implementation details follow the proposed paper: edges are extracted using the Canny edge detector on grayscale images, the orientation gradients are computed using a 3 × 3 Sobel mask. L2 distance is also used as the distance metric, because the paper has proved that it is outperforms histogram intersection and cosine similarity for this feature.
 
-See [`phog()`](https://github.com/jason2506/SimpleCBIR/blob/master/src/phog.m).
+See [`sobel()`](https://github.com/jason2506/SimpleCBIR/blob/master/src/sobel.m) and [`phog()`](https://github.com/jason2506/SimpleCBIR/blob/master/src/phog.m).
 
 #### References:
 
@@ -59,6 +61,6 @@ where *x* is (*d*-dimensional) edge feature, *w* is *d*-dimensional and randomly
 
 Then, the **hamming distance** on the generated binary codes is the last distance metric used in this system.
 
-The program will evaluate the performance by using *k* = *d*, *d*/2, *d*/3 and plot the three curves on the same figure for comparison.
+The program will evaluate the performance by using *k* = *d*, *d* / 2, *d* / 3 and plot the three curves on the same figure for comparison.
 
 See [`randproj()`](https://github.com/jason2506/SimpleCBIR/blob/master/src/randproj.m).
