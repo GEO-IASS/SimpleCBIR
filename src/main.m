@@ -5,8 +5,8 @@ pkg('load', 'image');
 K = 40; L = 3; G = 5; N = 50;
 
 % list all image files in the root
-dataroot = './dataset/';
-figroot = './figure/';
+dataroot = '../dataset/';
+figroot = '../figure/';
 files = [ls([dataroot, '*/*.jpg']);
          ls([dataroot, '*/*.JPG']);
          ls([dataroot, '*/*.jpeg'])];
