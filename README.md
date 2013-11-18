@@ -2,14 +2,14 @@
 
 ## Execution
 
-Before running this program, you need to prepare some images as the dataset and save it in the `dataset/[category]/` directory. `[category]` is the name of category the image belongs to.
+Before running this program, you need to prepare some images as the dataset and save it in the `[dataset_path]/[category]/` directory. `[dataset_path]` is the path of your dataset, `[category]` is the name of category the image belongs to.
 
 Then, just executes:
 
     $ cd src/
-    $ octave main.m
+    $ octave main.m [dataset_path] [figure_path]
     
-The program will perform leave-one-out cross validation on different distance metrics for each image categories, and save the precision-recall curves (PR curves) on the `figure` directory (with the name `[category]_[metric].png`).
+The program will perform leave-one-out cross validation on different distance metrics for each image categories, and save the precision-recall curves (PR curves) on the `[figure_path]` directory (with the name `[category]_[metric].png`).
 
 ## Distance Metrics
 
