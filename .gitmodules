@@ -1,0 +1,3 @@
+[submodule "src/optionParser"]
+	path = src/optionParser
+	url = https://github.com/jason2506/optionParser.git

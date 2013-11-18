@@ -2,11 +2,30 @@ clear all; close all; clc;
 
 pkg('load', 'image');
 
-K = 40; L = 3; G = 5; N = 50;
+% create option parser
+addpath('optionParser');
+p = optionParser('', 'Desc', 'A simple content-based image retrieval system');
+p = addOption(p, 'bins', '-k', 'Default', 40, ...
+              'Desc', 'The number of orientation histogram bins (for PHOG)');
+p = addOption(p, 'levels', '-l', 'Default', 3, ...
+              'Desc', 'The number of pyramid levels (for PHOG)');
+p = addOption(p, 'grids', '-g', 'Default', 5, ...
+              'Desc', 'The number of grids (for GCM)');
+p = addOption(p, 'num', '-n', 'Default', 50, ...
+              'Desc', 'The number of retrieved images (for leave-one-out cross validation)');
+p = addOption(p, 'dataset_path', []);
+p = addOption(p, 'figure_path', []);
+
+% extract option arguments
+vals = parse(p, argv());
+K = vals.bins;
+L = vals.levels;
+G = vals.grids;
+N = vals.num;
+dataroot = vals.dataset_path;
+figroot = vals.figure_path;
 
 % list all image files in the root
-dataroot = '../dataset/';
-figroot = '../figure/';
 files = [ls([dataroot, '*/*.jpg']);
          ls([dataroot, '*/*.JPG']);
          ls([dataroot, '*/*.jpeg'])];
